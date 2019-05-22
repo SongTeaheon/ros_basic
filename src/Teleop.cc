@@ -1,49 +1,49 @@
 #include "ros/ros.h"
-#include <string>
-#include <memory>/*unique_ptr*/
-#include "geometry_msgs/Twist.h"
-#include "kobuki_msgs/BumperEvent.h"
 
-void SubBump(const kobuki_msgs::BumperEvent& _msg);
-void PubCmd();
-std::unique_ptr<ros::NodeHandle> nh;
-ros::Subscriber bumper_subscriber;
-ros::Publisher cmd_publisher;
+#include <memory>/*for unique_ptr*/
 
-int main(int argc, char* argv[])
+#include "geometry_msgs/Twist.h"/*topic msg type for [cmd_val/input/teleop]*/
+#include "kobuki_msgs/BumperEvent.h"/*topic msg type for [base/events/bumper]*/
+
+static const std::string name_node = "practice_node";
+static const std::string name_topic_bumper = "/mobile_base/events/bumper";
+static const std::string name_topic_teleop = "/cmd_vel_mux/input/teleop";
+
+class TurtlebotTopicManager
 {
+    public:///\Method
+        TurtlebotTopicManager();
+        void PubCmd();
 
-    std::string name_node = "prac_node";
-    std::string name_topic_bumper = "/mobile_base/events/bumper";
-    std::string name_topic_cmd = "/cmd_vel_mux/input/teleop";
+    private://\Method
+        void subBump(const kobuki_msgs::BumperEvent& _msg);
 
-	if(!ros::isInitialized()) 
-    {
-		ros::init(argc,argv,name_node, ros::init_options::NoRosout); 
-    }
+    private://\Attribute
+        std::unique_ptr<ros::NodeHandle> nh;
+        ros::Publisher teleop_publisher;
+        ros::Subscriber bumper_subscriber;
+};
+
+TurtlebotTopicManager::TurtlebotTopicManager()
+{
+	if(!ros::isInitialized()) { int argc=0; char** argv=NULL;
+		ros::init(argc,argv,name_node, ros::init_options::NoRosout); }
 
     nh.reset(new ros::NodeHandle(name_node));
 
-	bumper_subscriber = nh->subscribe(name_topic_bumper, /*queue_size*/5, SubBump, ros::TransportHints().unreliable());
-	cmd_publisher = nh->advertise<geometry_msgs::Twist>( name_topic_cmd, 1, true);
-
-    ros::Rate loop_rate(10);
-    while(ros::ok())
-    {
-        PubCmd();
-        loop_rate.sleep();
-    }
-    return 0;
+	teleop_publisher = nh->advertise<geometry_msgs::Twist>(
+            name_topic_teleop, 1, true);
+	bumper_subscriber = nh->subscribe(
+            name_topic_bumper, /*queue_size*/5,&TurtlebotTopicManager::subBump,this); 
 }
 
-void SubBump(const kobuki_msgs::BumperEvent& _msg) 
+void TurtlebotTopicManager::subBump(const kobuki_msgs::BumperEvent& _msg) 
 { 
-    if( _msg.bumper/*==1*/)
-    {
+    if( _msg.bumper/*== true*/)
         ROS_ERROR_STREAM("BUMP!");
-    }
 }
-void PubCmd()
+
+void TurtlebotTopicManager::PubCmd(/*TODO Add cmd value*/)
 {
     geometry_msgs::Twist twist_msg;
     twist_msg.linear.x = 10;
@@ -52,6 +52,23 @@ void PubCmd()
     twist_msg.angular.x = 0;
     twist_msg.angular.y = 0;
     twist_msg.angular.z = 0;
-	cmd_publisher.publish(twist_msg);
+
+	teleop_publisher.publish(twist_msg);
 	ros::spinOnce();
+}
+
+
+int main(int argc, char* argv[])
+{
+    TurtlebotTopicManager turtlebot_tm;
+
+    ros::Rate loop_rate(10);
+
+    while(ros::ok())
+    {
+        turtlebot_tm.PubCmd();
+        loop_rate.sleep();
+    }
+
+    return 0;
 }
