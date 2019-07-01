@@ -1,0 +1,137 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="song">
+    <static>false</static>
+
+    <link name="base_link">
+      <pose>0 0 0.185 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.6 0.3 0.3</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.6 0.3 0.3</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="front_caster">
+    <pose>0.3 0 0.185 0 0 0</pose>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.3</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.3</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+   
+    <link name="front_wheel">
+      <pose>0.35 0 0.035 1.5707 0 0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <length>0.05</length>
+            <radius>0.035</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <length>0.05</length>
+            <radius>0.035</radius>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="back_right_wheel">
+      <pose>-0.3 -0.175 0.035 1.5707 0 0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <length>0.05</length>
+            <radius>0.035</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <length>0.05</length>
+            <radius>0.035</radius>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="back_left_wheel">
+      <pose>-0.3 0.175 0.035 1.5707 0 0</pose>
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <length>0.05</length>
+            <radius>0.035</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <length>0.05</length>
+            <radius>0.035</radius>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name = "front_caster_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>front_caster</child>
+    </joint>
+
+    <joint name = "front_wheel_joint" type="revolute">
+      <parent>front_caster</parent>
+      <child>front_wheel</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+      </axis>
+    </joint>
+
+    <joint name = "back_right_wheel_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>back_right_wheel</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+      </axis>
+    </joint>
+
+    <joint name = "back_left_wheel_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>back_left_wheel</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+      </axis>
+    </joint>
+
+
+  
+    
+      
+  </model>
+</sdf>

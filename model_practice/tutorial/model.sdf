@@ -1,0 +1,535 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="SimBox">
+    <static>false</static>
+
+<!-- base -->
+    <link name="base">
+      <pose>0 0 0.05 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>14 1 0.1</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>18 1 0.1</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+<!-- revolute -->
+
+    <link name="base_link_1_revolute">
+      <pose>0 0 0.3 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="top_link_1_revolute">
+      <pose>0 0 0.65 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.6 0.1 0.1</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.6 0.1 0.1</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+     <joint name = "base_fixed_1" type="fixed">
+      <parent>base</parent>
+      <child>base_link_1_revolute</child>
+    </joint>
+
+    <joint name = "joint_1_revolute" type="revolute">
+      <parent>base_link_1_revolute</parent>
+      <child>top_link_1_revolute</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+
+
+    <!-- prismatic box -->
+
+    <link name="base_link_2_prismatic">
+      <pose>1 0 0.3 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="link_2_prismatic">
+      <pose>1 0 0.15 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.6 0.1 0.1</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.6 0.1 0.1</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name = "base_fixed_2" type="fixed">
+      <parent>base</parent>
+      <child>base_link_2_prismatic</child>
+    </joint>
+
+    <joint name = "joint_2_prismatic" type="prismatic">
+      <parent>base_link_2_prismatic</parent>
+      <child>link_2_prismatic</child>
+      <axis>
+        <limit>
+          <lower>0</lower>
+          <upper>0.5</upper>
+        </limit>
+        <xyz>0 0 1</xyz>
+
+      </axis>
+
+    </joint>
+
+
+
+        <!-- ball joint box -->
+
+    <link name="base_link_3_ball">
+      <pose>2 0 0.3 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="link_3_ball">
+      <pose>2 0 0.65 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <sphere>
+            <radius> 0.1 </radius>
+          </sphere>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <sphere>
+            <radius> 0.1 </radius>
+          </sphere>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="top_link_3_ball">
+      <pose>2 0 0.8 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.3</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.3</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name = "base_fixed_3" type="fixed">
+      <parent>base</parent>
+      <child>base_link_3_ball</child>
+    </joint>
+
+    <joint name = "joint_3_ball" type="ball">
+      <parent>base_link_3_ball</parent>
+      <child>link_3_ball</child>
+    </joint>
+
+    <joint name = "top_fixed_3" type="fixed">
+      <parent>link_3_ball</parent>
+      <child>top_link_3_ball</child>
+    </joint>
+  
+    <!-- screw joint-->
+
+    <link name="base_link_4_screw">
+      <pose>3 0 0.3 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+           <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="top_link_4_screw">
+      <pose>3 0 0.65 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+           <box>
+            <size>0.6 0.1 0.1</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.6 0.1 0.1</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="link_4_screw">
+      <pose>3.3 0 0.65 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name = "base_fixed_4" type="fixed">
+      <parent>base</parent>
+      <child>base_link_4_screw</child>
+    </joint>
+
+    <joint name = "top_fixed_4" type="fixed">
+      <parent>base_link_4_screw</parent>
+      <child>top_link_4_screw</child>
+    </joint>
+
+    <joint name = "joint_4_screw" type="screw">
+      <parent>top_link_4_screw</parent>
+      <child>link_4_screw</child>
+      <thread_pitch>10</thread_pitch>
+      <axis>
+        <limit>
+          <upper>6.28</upper>
+          <lower>0</lower>
+        </limit>
+        <xyz> 1 0 0</xyz>
+      </axis>
+    </joint>
+
+    <!-- universal joint-->
+ <link name="base_link_5_universal">
+      <pose>4 0 0.3 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="link_5_universal">
+      <pose>4 0 0.65 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <sphere>
+            <radius> 0.1 </radius>
+          </sphere>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <sphere>
+            <radius> 0.1 </radius>
+          </sphere>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="top_link_5_universal">
+      <pose>4 0 0.8 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.3</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.3</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name = "base_fixed_5" type="fixed">
+      <parent>base</parent>
+      <child>base_link_5_universal</child>
+    </joint>
+
+    <joint name = "joint_5_universal" type="universal">
+      <parent>base_link_5_universal</parent>
+      <child>link_5_universal</child>
+
+      <axis>
+        <xyz>1 0 0</xyz>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+      </axis2>
+    </joint>
+
+    <joint name = "top_fixed_5" type="fixed">
+      <parent>link_5_universal</parent>
+      <child>top_link_5_universal</child>
+    </joint>
+
+
+<!-- revolute2 -->
+
+    <link name="base_link_6_revolute2">
+      <pose>5 0 0.3 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="top_link_6_revolute2">
+      <pose>5 0 0.65 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.6 0.1 0.1</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.6 0.1 0.1</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+     <joint name = "base_fixed_6" type="fixed">
+      <parent>base</parent>
+      <child>base_link_6_revolute2</child>
+    </joint>
+
+    <joint name = "joint_6_revolute2" type="revolute2">
+      <parent>base_link_6_revolute2</parent>
+      <child>top_link_6_revolute2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+      <axis2>
+        <xyz>1 0 0</xyz>
+      </axis2>
+    </joint>
+
+
+<!-- gearbox -->
+
+    <link name="base_link_7_gearbox">
+      <pose>6 0 0.3 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.1 0.1 0.6</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="top_link_lower_7_gearbox">
+      <pose>6 0 0.65 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.6 0.1 0.1</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.6 0.1 0.1</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+    
+
+    <link name="top_link_upper_7_gearbox">
+      <pose>6 0 0.75 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.6 0.1 0.1</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.6 0.1 0.1</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+
+
+     <joint name = "base_fixed_7" type="fixed">
+      <parent>base</parent>
+      <child>base_link_7_gearbox</child>
+    </joint>
+
+    <joint name = "joint_7_1_revolute_for_gearbox" type="revolute">
+      <parent>base_link_7_gearbox</parent>
+      <child>top_link_lower_7_gearbox</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+    <joint name = "joint_7_2_revolute_for_gearbox" type="revolute">
+      <parent>top_link_lower_7_gearbox</parent>
+      <child>top_link_upper_7_gearbox</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+    <joint name = "joint_7_gearbox" type="gearbox">
+      <parent>base_link_7_gearbox</parent>
+      <child>top_link_upper_7_gearbox</child>
+      <gearbox_ratio>2</gearbox_ratio>
+      <gearbox_reference_body>top_link_lower_7_gearbox</gearbox_reference_body>
+      <axis>
+        <use_parent_model_frame>true</use_parent_model_frame>
+        <xyz>0 0 1</xyz>
+      </axis>
+      <axis2>
+        <use_parent_model_frame>true</use_parent_model_frame>
+        <xyz>0 0 1</xyz>
+      </axis2>
+      
+    </joint>
+  </model>
+</sdf>
