@@ -1,0 +1,11 @@
+<launch>
+    <group ns="ns1">
+        <node pkg="basic_practice" type="topic_publisher" name="topic_pulisher1"/>
+        <node pkg="basic_practice" type="topic_subscriber" name="topic_subscriber1"/>
+    </group>
+    <group ns="ns2">
+        <node pkg="basic_practice" type="topic_publisher" name="topic_pulisher2"/>
+        <node pkg="basic_practice" type="topic_subscriber" name="topic_subscriber2"/>
+    </group>
+
+</launch>

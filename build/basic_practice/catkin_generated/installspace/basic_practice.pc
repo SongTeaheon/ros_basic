@@ -1,0 +1,8 @@
+prefix=/home/song/workspace/install
+
+Name: basic_practice
+Description: Description of basic_practice
+Version: 0.0.0
+Cflags: -I/home/song/workspace/install/include
+Libs: -L/home/song/workspace/install/lib -lbasic_practice
+Requires: message_generation roscpp std_msgs

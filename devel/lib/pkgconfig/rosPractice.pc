@@ -1,0 +1,8 @@
+prefix=/home/song/workspace/devel
+
+Name: rosPractice
+Description: Description of rosPractice
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/song/workspace/devel/lib -lrosPractice
+Requires: roscpp gazebo_ros message_generation

@@ -1,0 +1,8 @@
+prefix=/home/song/workspace/devel
+
+Name: teleop_pkg
+Description: Description of teleop_pkg
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/song/workspace/devel/lib 
+Requires: 

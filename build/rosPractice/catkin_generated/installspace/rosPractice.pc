@@ -1,0 +1,8 @@
+prefix=/home/song/workspace/install
+
+Name: rosPractice
+Description: Description of rosPractice
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/song/workspace/install/lib -lrosPractice
+Requires: roscpp gazebo_ros message_generation
